@@ -44,4 +44,3 @@ export const logoutApiCall = async () => {
         throw error;
     }
 };
-

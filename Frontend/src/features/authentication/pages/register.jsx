@@ -44,6 +44,9 @@ const Register = () => {
     try {
       await handleRegister({ username: fullname, email, password });
       toast.success("Registration successful");
+      setFullname("");
+      setEmail("");
+      setPassword("");
       navigate("/login");
     } catch (error) {
       toast.error("Registration failed");
