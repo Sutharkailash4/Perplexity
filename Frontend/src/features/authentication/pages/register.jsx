@@ -33,7 +33,7 @@ const Register = () => {
 
     if (!password.trim()) {
       toast.error("Password is required");
-      return; 
+      return;
     }
 
     if (!isPasswordValid) {
@@ -47,6 +47,7 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       toast.error("Registration failed");
+      console.log(error.message);
     }
   };
 

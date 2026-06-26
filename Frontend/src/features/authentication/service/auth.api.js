@@ -7,45 +7,41 @@ const api = axios.create({
 
 export const registerApiCall = async ({username, email, password}) => {
     try {
-        const response = await api.post("/api/auth/register", 
-            {username, email, password}
-        )
-
+        const response = await api.post("/api/auth/register", { username, email, password });
         return response.data;
-
-    } catch (error) {   
-        console.log(error.message);
+    } catch (error) {
+        console.error(error.response?.data?.message || error.message);
+        throw error;
     }
-}
+};
 
 export const loginApiCall = async ({email, password}) => {
     try {
-        const response = await api.post("/api/auth/login",
-            {email, password}
-        )
-
+        const response = await api.post("/api/auth/login", { email, password });
         return response.data;
-
     } catch (error) {
-        console.log(error.message);
+        console.error(error.response?.data?.message || error.message);
+        throw error;
     }
-}
+};
 
 export const getMeApiCall = async () => {
     try {
-        const response = await api.get("/api/auth/getMe")
+        const response = await api.get("/api/auth/getMe");
         return response.data;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.response?.data?.message || error.message);
+        throw error;
     }
-}
+};
 
 export const logoutApiCall = async () => {
     try {
-        const response = await api.post("/api/auth/logout")
+        const response = await api.post("/api/auth/logout");
         return response.data;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.response?.data?.message || error.message);
+        throw error;
     }
-}
+};
 

@@ -31,27 +31,27 @@ export const useAuth = () => {
 
     const handleGetMe = async () => {
         try {
-            dispatch(setLoading(true))  
+            dispatch(setLoading(true));
             const data = await getMeApiCall();
-            dispatch(setUser(data.user))
+            dispatch(setUser(data.user));
         } catch (error) {
-            dispatch(setError(error.response?.data?.message) || "User Not Found")
+            dispatch(setError(error.response?.data?.message || "User Not Found"));
         } finally {
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
         }
-    }
+    };
 
     const handleLogout = async () => {
         try {
-            dispatch(setLoading(true))
-            const data = await logoutApiCall();
-            dispatch(setUser(data.user))
+            dispatch(setLoading(true));
+            await logoutApiCall();
+            dispatch(setUser(null));
         } catch (error) {
-            dispatch(setError(error.response?.data?.message || "Logout Falied"))
+            dispatch(setError(error.response?.data?.message || "Logout Failed"));
         } finally {
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
         }
-    }
+    };
 
     return {
     handleRegister,
