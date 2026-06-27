@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const { handleLogin } = useAuth();
+
+  const user = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +32,10 @@ const Login = () => {
       toast.error("Log in Failed");
     }
   };
+
+  if (!loading && user) {
+    return navigate("/");
+  }
 
   return (
     <div className="login-container">
