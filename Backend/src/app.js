@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/authentication.route.js";
+import chatRoute from "./routes/chat.route.js";
 import morgan from "morgan";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRoute);
+app.use("/api/chat", chatRoute);
 
 // Health Check
 
