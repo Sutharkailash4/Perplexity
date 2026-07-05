@@ -8,7 +8,7 @@ export const sendMessageController = async (req, res) => {
         const result = await generateResponse(message);
 
         res.status(201).json({
-            response : result
+            Ai_Response : result
         })
     } catch(error) {
         res.status(400).json({
