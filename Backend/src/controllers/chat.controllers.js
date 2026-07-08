@@ -1,14 +1,15 @@
-import { generateResponse } from "../services/ai.service.js";
-
+import { generateResponse, generateTitle } from "../services/ai.service.js";
 
 export const sendMessageController = async (req, res) => {
     try {
         const {message} = req.body;
 
+        const title = await generateTitle(message);
         const result = await generateResponse(message);
 
         res.status(201).json({
-            Ai_Response : result
+            title : title,
+            response : result
         })
     } catch(error) {
         res.status(400).json({
@@ -16,5 +17,4 @@ export const sendMessageController = async (req, res) => {
             error : error.message
         })
     }
-}
-   
+}  
