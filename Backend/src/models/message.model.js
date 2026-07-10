@@ -30,6 +30,6 @@ messageSchema.index({
   createdAt: 1,
 });
 
-const MessageModel = mongoose.model("Message", messageSchema);
+const messageModel = mongoose.model("Message", messageSchema);
 
-export default MessageModel;
+export default messageModel;
