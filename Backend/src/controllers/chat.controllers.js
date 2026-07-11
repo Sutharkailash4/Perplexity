@@ -9,23 +9,23 @@ export const sendMessageController = async (req, res) => {
         const title = await generateTitle(message);
         const result = await generateResponse(message);
 
-        console.log(req.user.id);
+        console.log(req.user?.id);
 
         const chat = await ChatModel.create({
             user : req.user.id,
             title
         });
 
-        const userMessage = await MessageModel.create({
+        const userMessage = await messageModel.create({
             chat : chat._id,
             content : message,
             role : "user"
         })
 
-        const aiMessage = await MessageModel.create({
+        const aiMessage = await messageModel.create({
             chat : chat._id,
             content : result,
-            role : "ai"
+            role : "assistant"
         })
 
         res.status(201).json({

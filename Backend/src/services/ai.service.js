@@ -46,3 +46,15 @@ export const generateTitle = async (message) => {
   }
 }
 
+export const testAI = async () => {
+  try {
+    const sample = "Hello from testAI";
+    const response = await generateResponse(sample);
+    console.log("testAI - generateResponse:", response);
+    const title = await generateTitle(sample);
+    console.log("testAI - generateTitle:", title);
+  } catch (error) {
+    console.error("testAI error:", error);
+  }
+};
+

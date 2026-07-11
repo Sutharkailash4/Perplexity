@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const identifyUser = async (req, res, next) => {
     try {
-        const token = req.cookies.token || req.header("Authorization")?.replace(/^[Bb]earer\s+/, "");
+        const token = req.cookies.token;
 
         if (!token) {
             return res.status(401).json({
@@ -13,7 +13,7 @@ export const identifyUser = async (req, res, next) => {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_EMAIL_VERIFICATION_TOKEN);
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = decoded;
             return next();
         } catch (error) {
