@@ -6,8 +6,7 @@ export const sendMessageController = async (req, res) => {
     try {
         const {message, chat : chatId} = req.body;
 
-        const result = await generateResponse(message);
-
+        
         let title = null;
         let chat = null;
 
@@ -27,16 +26,18 @@ export const sendMessageController = async (req, res) => {
                 });
             }
         }
-
-        const messages = await messageModel.find({ chat: chat._id });
-
-        console.log(messages);
-
+        
         const userMessage = await messageModel.create({
             chat: chat._id,
             content: message,
             role: "user"
         });
+        
+        const messages = await messageModel.find({ chat: chat._id });
+        
+        console.log(messages);
+        
+        const result = await generateResponse(message);
 
         const aiMessage = await messageModel.create({
             chat: chat._id,
@@ -56,3 +57,4 @@ export const sendMessageController = async (req, res) => {
         })
      }
 }
+
