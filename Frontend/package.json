@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@langchain/mistralai": "^1.2.0",
     "@reduxjs/toolkit": "^2.12.0",
     "axios": "^1.18.0",
     "react": "^19.2.5",
