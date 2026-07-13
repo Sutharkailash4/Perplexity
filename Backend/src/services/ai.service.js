@@ -14,14 +14,21 @@ const mistralModel = new ChatMistralAI({
 
 export const generateResponse = async (messages) => {
   try {
+    const content = Array.isArray(messages)
+      ? messages
+          .map((msg) => {
+            if (msg.role === "user") {
+              return `User: ${msg.content}`;
+            } else if (msg.role === "assistant") {
+              return `Assistant: ${msg.content}`;
+            }
+            return String(msg.content ?? msg);
+          })
+          .join("\n")
+      : String(messages);
+
     const response = await Geminimodel.invoke([
-      new HumanMessage(messages.map(msg => {
-        if(msg.role === "user") {
-          return `User: ${msg.content}`;
-        } else if (msg.role === "assistant") {
-          return `Assistant: ${msg.content}`;
-        }
-      })),
+      new HumanMessage(content),
     ]);
 
     console.log(response.text);

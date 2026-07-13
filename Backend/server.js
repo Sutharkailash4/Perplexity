@@ -25,9 +25,6 @@ initSocket(httpServer);
 
 ConnectedToDatabase();
 
-generateResponse("What is The capital of india");
-generateTitle("What is The capital of franch");
-
 httpServer.listen(Port, () => {
     console.log(`Server is Running on Port ${Port}`);
 }) 
