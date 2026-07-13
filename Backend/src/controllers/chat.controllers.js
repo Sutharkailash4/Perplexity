@@ -6,7 +6,6 @@ export const sendMessageController = async (req, res) => {
     try {
         const {message, chat : chatId} = req.body;
 
-        
         let title = null;
         let chat = null;
 
@@ -36,8 +35,8 @@ export const sendMessageController = async (req, res) => {
         const messages = await messageModel.find({ chat: chat._id });
         
         console.log(messages);
-        
-        const result = await generateResponse(message);
+
+        const result = await generateResponse(messages);
 
         const aiMessage = await messageModel.create({
             chat: chat._id,
@@ -57,4 +56,3 @@ export const sendMessageController = async (req, res) => {
         })
      }
 }
-

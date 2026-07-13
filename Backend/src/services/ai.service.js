@@ -12,10 +12,16 @@ const mistralModel = new ChatMistralAI({
   apiKey: process.env.MISTRAL_API_KEY
 });
 
-export const generateResponse = async (message) => {
+export const generateResponse = async (messages) => {
   try {
     const response = await Geminimodel.invoke([
-      new HumanMessage(message),
+      new HumanMessage(messages.map(msg => {
+        if(msg.role === "user") {
+          return `User: ${msg.content}`;
+        } else if (msg.role === "assistant") {
+          return `Assistant: ${msg.content}`;
+        }
+      })),
     ]);
 
     console.log(response.text);
