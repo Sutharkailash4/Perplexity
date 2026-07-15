@@ -28,4 +28,3 @@ ConnectedToDatabase();
 httpServer.listen(Port, () => {
     console.log(`Server is Running on Port ${Port}`);
 }) 
-
