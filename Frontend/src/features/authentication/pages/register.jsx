@@ -8,7 +8,7 @@ const Register = () => {
 
   const { handleRegister } = useAuth();
 
-  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -21,8 +21,8 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (!fullname.trim()) {
-      toast.error("Full name is required");
+    if (!username.trim()) {
+      toast.error("Username is required");
       return;
     }
 
@@ -42,9 +42,9 @@ const Register = () => {
     }
 
     try {
-      await handleRegister({ username: fullname, email, password });
+      await handleRegister({ username, email, password });
       toast.success("Registration successful");
-      setFullname("");
+      setUsername("");
       setEmail("");
       setPassword("");
       navigate("/login");
@@ -69,12 +69,12 @@ const Register = () => {
         </div>
 
         <form className="auth-form" onSubmit={submitHandler}>
-          <label>Full Name</label>
+          <label>Username</label>
           <input
             type="text"
-            placeholder="Enter your name"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
+            placeholder="Choose a username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <label>Email</label>

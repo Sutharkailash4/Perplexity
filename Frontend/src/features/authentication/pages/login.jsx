@@ -33,8 +33,14 @@ const Login = () => {
     }
   };
 
+  React.useEffect(() => {
+    if (!loading && user) {
+      navigate("/");
+    }
+  }, [loading, user, navigate]);
+
   if (!loading && user) {
-    return navigate("/");
+    return null;
   }
 
   return (
