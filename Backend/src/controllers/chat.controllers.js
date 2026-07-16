@@ -112,7 +112,27 @@ export const getMessagesController = async () => {
 
 export const deleteChatController = async () => {
     try {
-        
+        const {chatId} = req.params;
+
+        const chat = await ChatModel.findByIdAndDelete({
+            _id : chatId,
+            user : req.user.id
+        });
+
+        await messageModel.deleteMany({
+            chat : chatId
+        })
+
+        if(!chat) {
+            return res.status(404).json({
+                message : "Chat not found"
+            })
+        }
+
+        res.status(200).json({
+            message : "Chat Delete Sucessfully"
+        })
+
     } catch (error) {
         res.status(400).json({
             message : "Something Went Wrong",
