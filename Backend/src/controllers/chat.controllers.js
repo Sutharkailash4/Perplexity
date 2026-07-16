@@ -59,7 +59,7 @@ export const sendMessageController = async (req, res) => {
 }
 
 
-export const getChats = async () => {
+export const getChatsController = async () => {
     try {
         const user = req.user;
 
@@ -78,7 +78,7 @@ export const getChats = async () => {
     }
 }
 
-export const getMessages = async () => {
+export const getMessagesController = async () => {
     try {
         const {chatId} = req.params;
 
@@ -102,6 +102,17 @@ export const getMessages = async () => {
             messages
         })
 
+    } catch (error) {
+        res.status(400).json({
+            message : "Something Went Wrong",
+            error : error.message
+        })
+    }
+}
+
+export const deleteChatController = async () => {
+    try {
+        
     } catch (error) {
         res.status(400).json({
             message : "Something Went Wrong",

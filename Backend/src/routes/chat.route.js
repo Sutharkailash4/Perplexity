@@ -1,9 +1,12 @@
 import {Router} from "express";
-import { sendMessageController } from "../controllers/chat.controllers.js";
+import { sendMessageController, getChatsController, getMessagesController } from "../controllers/chat.controllers.js";
 import { identifyUser } from "../middleware/auth.middleware.js";
 
 const chatRoute = Router();
 
 chatRoute.post("/message", identifyUser, sendMessageController);
+chatRoute.get("/", identifyUser, getChatsController);
+chatRoute.get("/:chatId/messages", identifyUser, getMessagesController);
+
 
 export default chatRoute;
