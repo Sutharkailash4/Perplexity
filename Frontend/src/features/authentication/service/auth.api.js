@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "/api",
     withCredentials: true,
     headers: {
         "Content-Type": "application/json"
@@ -10,7 +10,7 @@ const api = axios.create({
 
 export const registerApiCall = async ({username, email, password}) => {
     try {
-        const response = await api.post("/api/auth/register", { username, email, password });
+        const response = await api.post("/auth/register", { username, email, password });
         return response.data;
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
@@ -20,7 +20,7 @@ export const registerApiCall = async ({username, email, password}) => {
 
 export const loginApiCall = async ({email, password}) => {
     try {
-        const response = await api.post("/api/auth/login", { email, password });
+        const response = await api.post("/auth/login", { email, password });
         return response.data;
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
@@ -30,7 +30,7 @@ export const loginApiCall = async ({email, password}) => {
 
 export const getMeApiCall = async () => {
     try {
-        const response = await api.get("/api/auth/getMe");
+        const response = await api.get("/auth/getMe");
         return response.data;
     } catch (error) {
         console.error(error.response?.data?.message || error.message);
@@ -40,7 +40,7 @@ export const getMeApiCall = async () => {
 
 export const logoutApiCall = async () => {
     try {
-        const response = await api.post("/api/auth/logout");
+        const response = await api.post("/auth/logout");
         return response.data;
     } catch (error) {
         console.error(error.response?.data?.message || error.message);

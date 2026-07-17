@@ -8,8 +8,16 @@ const App = () => {
   const auth = useAuth();
 
   useEffect(() => {
-    auth.handleGetMe();
-  }, []);
+    const loadUser = async () => {
+      try {
+        await auth.handleGetMe();
+      } catch (error) {
+        // Intentionally ignore auth errors during initialization
+      }
+    };
+
+    loadUser();
+  }, [auth]);
 
   return <RouterProvider router={router} />;
 };
