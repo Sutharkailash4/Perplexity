@@ -558,6 +558,24 @@ body {
   border-color: #22d3ee;
 }
 
+.prompt-btn {
+  padding: 12px 16px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  color: #22d3ee;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+  width: 100%;
+  text-align: left;
+}
+
+.prompt-btn:hover {
+  background: rgba(34, 211, 238, 0.2);
+  border-color: #22d3ee;
+}
+
 .chat-container {
   display: flex;
   flex-direction: column;
