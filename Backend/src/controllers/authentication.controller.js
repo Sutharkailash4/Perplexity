@@ -157,13 +157,15 @@ export const loginController = async (req, res) => {
       }
     );
 
-    res.cookie("token", token, {
+    const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000
-    });
+    };
+
+    res.cookie("token", token, cookieOptions);
 
     return res.status(200).json({
       message: "User logged in successfully",
@@ -212,12 +214,14 @@ export const getMeController = async (req, res) => {
 
 export const logoutController = async (req, res) => {
   try {
-    res.clearCookie("token", {
+    const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/"
-    });
+    };
+
+    res.clearCookie("token", cookieOptions);
 
     return res.status(200).json({
       success: true,
