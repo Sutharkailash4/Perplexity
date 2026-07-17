@@ -6,5 +6,16 @@ export const store = configureStore({
     reducer : {
         auth : authReducer,
         chat : chatReducer
-    }   
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                warnAfter: 128,
+                ignoredActions: ['chat/setChats', 'chat/setLoading'],
+                ignoredPaths: ['chat.chats']
+            },
+            immutableStateInvariant: {
+                warnAfter: 128
+            }
+        })
 })
