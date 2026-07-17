@@ -316,29 +316,30 @@ const Dashboard = () => {
               )}
               <div ref={messagesEndRef} />
             </div>
-
-            <div className="search-box">
-              <textarea
-                placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
-                className="search-input"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={isLoading}
-                rows="3"
-                aria-label="Message input"
-              />
-              <button
-                className="send-btn"
-                onClick={handleSendMessage}
-                disabled={isLoading}
-                title="Send message (Enter)"
-              >
-                {isLoading ? "Sending..." : "Send"}
-              </button>
-            </div>
           </div>
         )}
+
+        {/* Input box - shown in both welcome and chat modes */}
+        <div className="search-box">
+          <textarea
+            placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
+            className="search-input"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isLoading}
+            rows="3"
+            aria-label="Message input"
+          />
+          <button
+            className="send-btn"
+            onClick={handleSendMessage}
+            disabled={isLoading}
+            title="Send message (Enter)"
+          >
+            {isLoading ? "Sending..." : "Send"}
+          </button>
+        </div>
       </section>
     </main>
   );

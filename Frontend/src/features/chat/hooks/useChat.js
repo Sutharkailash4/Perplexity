@@ -16,18 +16,26 @@ export const useChat = () => {
             dispatch(setLoading(true));
             dispatch(setError(null));
             
+            console.log("Sending message with chatId:", chatId);
+            
             const response = await sendMessageApiCall({message, chat: chatId});
             
+            console.log("Response from API:", response);
+            
+            // If this is a new chat (chatId was null/undefined), update currentChatId with the new chat
             if (!chatId && response.chat) {
+                console.log("New chat created with ID:", response.chat._id);
                 dispatch(setCurrentChatId(response.chat._id));
             }
             
-            const updatedChats = await getChatApiCall();
-            dispatch(setChats(updatedChats.chats));
+            // Fetch updated chats list
+            const chatsResponse = await getChatApiCall();
+            dispatch(setChats(chatsResponse.chats));
             
             dispatch(setLoading(false));
             return response;
         } catch (error) {
+            console.error("Error sending message:", error);
             dispatch(setError(error.response?.data?.message || error.message));
             dispatch(setLoading(false));
             throw error;
