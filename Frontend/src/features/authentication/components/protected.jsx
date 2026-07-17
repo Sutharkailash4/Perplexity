@@ -16,7 +16,14 @@ const Protected = ({ children }) => {
   }, [loading, initialized, user, navigate]);
 
   if (!initialized || loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-screen">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!user) {
