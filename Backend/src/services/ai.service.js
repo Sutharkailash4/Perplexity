@@ -28,6 +28,12 @@ export const generateResponse = async (messages) => {
       : String(messages);
 
     const response = await Geminimodel.invoke([
+      new SystemMessage(`You are a helpful AI assistant. Format your responses clearly and concisely:
+- Use bullet points (•) or numbered lists when presenting multiple items
+- Break complex information into digestible sections
+- Use clear, structured formatting for better readability
+- Bold important terms using **text** format when needed
+- Keep responses organized and easy to scan`),
       new HumanMessage(content),
     ]);
 
