@@ -1,3 +1,5 @@
+Live Link => https://perplexity-1-fczu.onrender.com
+
 #  Perplexity AI Chat Application
 
 A full-stack AI-powered chat application inspired by Perplexity AI, built with the MERN stack. The application provides secure user authentication, AI-generated conversations, chat history management, and a modern responsive interface.
