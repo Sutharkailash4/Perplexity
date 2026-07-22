@@ -3,41 +3,35 @@ import { useSelector, useDispatch } from "react-redux";
 import { useChat } from "../hooks/useChat";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../authentication/hooks/useAuth";
-import { toast } from "react-toastify";
 import { setCurrentChatId } from "../chat.slice";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const reduxDispatch = useDispatch();
   const navigate = useNavigate();
   const { handleLogout } = useAuth();
   const chat = useChat();
-  
-  // Redux selectors - these are the SOURCE OF TRUTH
+
   const user = useSelector((state) => state.auth.user);
   const chats = useSelector((state) => state.chat.chats);
   const currentChatId = useSelector((state) => state.chat.currentChatId);
-  
-  // Local component state
+
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Initialize on mount
   useEffect(() => {
     console.log("Initializing dashboard...");
     chat.initializeSocketConnection();
     loadChats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Load messages when currentChatId changes
   useEffect(() => {
     console.log("Current chat ID changed to:", currentChatId);
     if (currentChatId) {
@@ -45,10 +39,8 @@ const Dashboard = () => {
     } else {
       setMessages([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChatId]);
 
-  // Load chats from server
   const loadChats = useCallback(async () => {
     try {
       console.log("Loading chats...");
@@ -59,23 +51,24 @@ const Dashboard = () => {
     }
   }, [chat]);
 
-  // Load messages for a specific chat
-  const loadMessages = useCallback(async (chatId) => {
-    try {
-      console.log("Loading messages for chat:", chatId);
-      setIsLoading(true);
-      const response = await chat.handleGetMessage(chatId);
-      setMessages(response.messages || []);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Failed to load messages:", error);
-      toast.error("Failed to load messages");
-      setMessages([]);
-      setIsLoading(false);
-    }
-  }, [chat]);
+  const loadMessages = useCallback(
+    async (chatId) => {
+      try {
+        console.log("Loading messages for chat:", chatId);
+        setIsLoading(true);
+        const response = await chat.handleGetMessage(chatId);
+        setMessages(response.messages || []);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to load messages:", error);
+        toast.error("Failed to load messages");
+        setMessages([]);
+        setIsLoading(false);
+      }
+    },
+    [chat],
+  );
 
-  // Send message to AI
   const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) {
       toast.warning("Please enter a message");
@@ -90,17 +83,20 @@ const Dashboard = () => {
     try {
       console.log("Sending message:", messageText, "Chat ID:", currentChatId);
       setIsLoading(true);
-      
+
       const response = await chat.handleSendMessage({
         message: messageText,
         chatId: currentChatId,
       });
 
       console.log("Response:", response);
-      
+
       if (response.userMessage && response.aiMessage) {
-        setMessages((prev) => [...prev, response.userMessage, response.aiMessage]);
-        toast.success("Message sent!");
+        setMessages((prev) => [
+          ...prev,
+          response.userMessage,
+          response.aiMessage,
+        ]);
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -111,7 +107,6 @@ const Dashboard = () => {
     }
   }, [inputValue, currentChatId, chat, isLoading]);
 
-  // Create new chat
   const handleNewChat = useCallback(() => {
     console.log("Creating new chat...");
     reduxDispatch(setCurrentChatId(null));
@@ -119,31 +114,34 @@ const Dashboard = () => {
     setInputValue("");
   }, [reduxDispatch]);
 
-  // Select a chat from history
-  const handleSelectChat = useCallback((chatId) => {
-    console.log("Selecting chat:", chatId);
-    if (currentChatId !== chatId) {
-      reduxDispatch(setCurrentChatId(chatId));
-    }
-  }, [currentChatId, reduxDispatch]);
-
-  // Delete a chat
-  const handleDeleteChat = useCallback(async (chatId) => {
-    try {
-      console.log("Deleting chat:", chatId);
-      await chat.handleDeleteChat(chatId);
-      toast.success("Chat deleted successfully");
-      
-      if (currentChatId === chatId) {
-        handleNewChat();
+  const handleSelectChat = useCallback(
+    (chatId) => {
+      console.log("Selecting chat:", chatId);
+      if (currentChatId !== chatId) {
+        reduxDispatch(setCurrentChatId(chatId));
       }
-    } catch (error) {
-      console.error("Failed to delete chat:", error);
-      toast.error("Failed to delete chat");
-    }
-  }, [chat, currentChatId, handleNewChat]);
+    },
+    [currentChatId, reduxDispatch],
+  );
 
-  // Logout
+  const handleDeleteChat = useCallback(
+    async (chatId) => {
+      try {
+        console.log("Deleting chat:", chatId);
+        await chat.handleDeleteChat(chatId);
+        toast.success("Chat deleted successfully");
+
+        if (currentChatId === chatId) {
+          handleNewChat();
+        }
+      } catch (error) {
+        console.error("Failed to delete chat:", error);
+        toast.error("Failed to delete chat");
+      }
+    },
+    [chat, currentChatId, handleNewChat],
+  );
+
   const handleLogoutClick = useCallback(async () => {
     try {
       console.log("Logging out...");
@@ -156,15 +154,16 @@ const Dashboard = () => {
     }
   }, [handleLogout, navigate]);
 
-  // Handle key press in input
-  const handleKeyPress = useCallback((e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  }, [handleSendMessage]);
+  const handleKeyPress = useCallback(
+    (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage();
+      }
+    },
+    [handleSendMessage],
+  );
 
-  // Handle example prompt click
   const handleExampleClick = useCallback((text) => {
     setInputValue(text);
   }, []);
@@ -172,7 +171,9 @@ const Dashboard = () => {
   return (
     <main className="dashboard-main">
       {/* Sidebar */}
-      <aside className={`dashboard-sidebar ${isSidebarOpen ? "open" : "closed"}`}>
+      <aside
+        className={`dashboard-sidebar ${isSidebarOpen ? "open" : "closed"}`}
+      >
         <div className="sidebar-header">
           <h2 className="perplexity-heading">Perplexity</h2>
           <button
@@ -184,8 +185,8 @@ const Dashboard = () => {
           </button>
         </div>
 
-        <button 
-          className="new-chat-btn" 
+        <button
+          className="new-chat-btn"
           onClick={handleNewChat}
           title="Start a new chat"
         >
@@ -236,8 +237,8 @@ const Dashboard = () => {
             <p className="username">{user?.username || "User"}</p>
             <p className="user-email">{user?.email}</p>
           </div>
-          <button 
-            className="logout-btn" 
+          <button
+            className="logout-btn"
             onClick={handleLogoutClick}
             title="Logout from your account"
           >
@@ -258,7 +259,9 @@ const Dashboard = () => {
                 <button
                   className="prompt-btn"
                   onClick={() =>
-                    handleExampleClick("Explain quantum computing in simple terms")
+                    handleExampleClick(
+                      "Explain quantum computing in simple terms",
+                    )
                   }
                 >
                   Explain quantum computing
