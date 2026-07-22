@@ -26,4 +26,6 @@ app.get("/", (req, res) => {
     })
 });
 
+console.log("Server is Running");
+
 export default app;
