@@ -11,7 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:5173" || "https://perplexity-1-fczu.onrender.com", credentials: true, methods : ["GET", "POST", "PUT", "DELETE"] }));
+app.use(cors({ origin: "http://localhost:5173"
+     || "https://perplexity-1-fczu.onrender.com",
+      credentials: true, methods : ["GET", "POST", "PUT", "DELETE"] }));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
