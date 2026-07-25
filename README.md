@@ -1,4 +1,4 @@
-Live Link => https://perplexity-1-fczu.onrender.com
+Live Link => https://perplexity-06.onrender.com
 
 #  Perplexity AI Chat Application
 
