@@ -13,7 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //  Allow both local frontend and live deployed frontend
 const allowedOrigins = [
-  "http://localhost:5173",               
+  "http://localhost:5173",
+  "https://perplexity-15.onrender.com"               
 ];
 
 app.use(
