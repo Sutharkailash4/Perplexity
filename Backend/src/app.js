@@ -11,10 +11,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Allow both local frontend and live deployed frontend
+//  Allow both local frontend and live deployed frontend
 const allowedOrigins = [
-  "http://localhost:5173",                    // Local Frontend
-  "https://perplexity-1-fczu.onrender.com"    // Live Deployed Frontend
+  "http://localhost:5173",                   
+  "https://perplexity-1-fczu.onrender.com"    
 ];
 
 app.use(
