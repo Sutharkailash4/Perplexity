@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.model.js";
-import { sendEmail } from "../services/mail.service.js";
+// import { sendEmail } from "../services/mail.service.js";
 
 export const registerController = async (req, res) => {
   try {
@@ -21,9 +21,11 @@ export const registerController = async (req, res) => {
     const user = await userModel.create({
       username,
       email,
-      password
+      password,
+      verified: true // Automatically set to true since email verification is disabled
     });
 
+    /* EMAIL VERIFICATION DISABLED
     const emailVerificationToken = jwt.sign(
       {
         id: user._id,
@@ -49,9 +51,10 @@ export const registerController = async (req, res) => {
         <p>Best regards,<br>The Perplexity Team</p>
       `
     });
+    */
 
     return res.status(201).json({
-      message: "User registered successfully. Please verify your email.",
+      message: "User registered successfully.", // Updated message
       success: true,
       user: {
         id: user._id,
@@ -68,6 +71,7 @@ export const registerController = async (req, res) => {
   }
 };
 
+/* EMAIL VERIFICATION CONTROLLER DISABLED
 export const verifyEmailController = async (req, res) => {
   try {
     const { token } = req.query;
@@ -112,6 +116,7 @@ export const verifyEmailController = async (req, res) => {
     });
   }
 };
+*/
 
 export const loginController = async (req, res) => {
   try {
@@ -137,6 +142,7 @@ export const loginController = async (req, res) => {
       });
     }
 
+    /* EMAIL VERIFICATION CHECK DISABLED
     if (!user.verified) {
       return res.status(400).json({
         message: "Please verify your email before logging in",
@@ -144,6 +150,7 @@ export const loginController = async (req, res) => {
         error: "Email not verified"
       });
     }
+    */
 
     const token = jwt.sign(
       {
