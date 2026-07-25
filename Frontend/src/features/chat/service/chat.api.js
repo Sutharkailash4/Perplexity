@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL:  "https://perplexity-8.onrender.com/api",
+    baseURL:  "https://perplexity-16.onrender.com/api",
     withCredentials: true,
     headers: {
         "Content-Type": "application/json"
