@@ -1,58 +1,46 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import morgan from "morgan";
-
 import authRoute from "./routes/authentication.route.js";
 import chatRoute from "./routes/chat.route.js";
+import morgan from "morgan";
 
 const app = express();
 
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//  Allow both local frontend and live deployed frontend
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://perplexity-06.onrender.com",
+  "http://localhost:5173",               
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests without origin (Postman, Thunder Client, etc.)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl) or allowed domains
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
       }
-
-      return callback(new Error(`CORS Error: ${origin} is not allowed.`));
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Authorization",
-    ],
+    methods: ["GET", "POST", "PUT", "DELETE"]
   })
 );
 
-app.options("*", cors());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-// Routes
 app.use("/api/auth", authRoute);
 app.use("/api/chat", chatRoute);
 
 // Health Check
 app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Server is Running 🚀",
+  res.json({
+    message: "Server is Running"
   });
 });
 
