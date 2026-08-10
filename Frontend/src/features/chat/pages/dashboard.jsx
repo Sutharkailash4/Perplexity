@@ -252,72 +252,90 @@ const Dashboard = () => {
         {!currentChatId ? (
           <div className="welcome-container">
             <div className="welcome-content">
-              <h1>Welcome to Perplexity</h1>
-              <p>Ask me anything, and I'll help you find the answers.</p>
+              <div className="welcome-badge">AI Research Workspace</div>
+              <h1>Ask anything. Discover clearly.</h1>
+              <p>
+                Get concise, structured answers in a calm workspace designed for
+                focused thinking.
+              </p>
               <div className="example-prompts">
                 <h3>Try asking:</h3>
-                <button
-                  className="prompt-btn"
-                  onClick={() =>
-                    handleExampleClick(
-                      "Explain quantum computing in simple terms",
-                    )
-                  }
-                >
-                  Explain quantum computing
-                </button>
-                <button
-                  className="prompt-btn"
-                  onClick={() =>
-                    handleExampleClick("How to learn web development?")
-                  }
-                >
-                  How to learn web development?
-                </button>
-                <button
-                  className="prompt-btn"
-                  onClick={() =>
-                    handleExampleClick("What is artificial intelligence?")
-                  }
-                >
-                  What is artificial intelligence?
-                </button>
+                <div className="prompt-grid">
+                  <button
+                    className="prompt-btn"
+                    onClick={() =>
+                      handleExampleClick(
+                        "Explain quantum computing in simple terms",
+                      )
+                    }
+                  >
+                    Explain quantum computing
+                  </button>
+                  <button
+                    className="prompt-btn"
+                    onClick={() =>
+                      handleExampleClick("How to learn web development?")
+                    }
+                  >
+                    How to learn web development?
+                  </button>
+                  <button
+                    className="prompt-btn"
+                    onClick={() =>
+                      handleExampleClick("What is artificial intelligence?")
+                    }
+                  >
+                    What is artificial intelligence?
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         ) : (
           <div className="chat-container">
-            <div className="messages-box">
-              {messages.length === 0 ? (
-                <div className="no-messages">
-                  <p>Start a new conversation...</p>
+            <div className="conversation-panel">
+              <div className="conversation-header">
+                <div>
+                  <p className="conversation-label">Research assistant</p>
+                  <h3>{currentChatId ? "Live conversation" : "New conversation"}</h3>
                 </div>
-              ) : (
-                messages.map((msg, index) => (
-                  <div
-                    key={index}
-                    className={`message ${msg.role === "user" ? "user-msg" : "ai-msg"}`}
-                  >
-                    <div className="message-avatar">
-                      {msg.role === "user" ? "👤" : "🤖"}
-                    </div>
-                    <div className="message-content">{msg.content}</div>
-                  </div>
-                ))
-              )}
-              {isLoading && (
-                <div className="message ai-msg">
-                  <div className="message-avatar">🤖</div>
-                  <div className="message-content">
-                    <div className="typing-indicator">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
+                <div className="conversation-badges">
+                  <span className="status-pill">Live</span>
+                  <span className="focus-pill">Structured answers</span>
                 </div>
-              )}
-              <div ref={messagesEndRef} />
+              </div>
+              <div className="messages-box">
+                {messages.length === 0 ? (
+                  <div className="no-messages">
+                    <p>Start a new conversation...</p>
+                  </div>
+                ) : (
+                  messages.map((msg, index) => (
+                    <div
+                      key={index}
+                      className={`message ${msg.role === "user" ? "user-msg" : "ai-msg"}`}
+                    >
+                      <div className="message-avatar">
+                        {msg.role === "user" ? "👤" : "🤖"}
+                      </div>
+                      <div className="message-content">{msg.content}</div>
+                    </div>
+                  ))
+                )}
+                {isLoading && (
+                  <div className="message ai-msg">
+                    <div className="message-avatar">🤖</div>
+                    <div className="message-content">
+                      <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
             </div>
           </div>
         )}
@@ -325,7 +343,7 @@ const Dashboard = () => {
         {/* Input box - shown in both welcome and chat modes */}
         <div className="search-box">
           <textarea
-            placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
+            placeholder="Ask anything..."
             className="search-input"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -340,7 +358,7 @@ const Dashboard = () => {
             disabled={isLoading}
             title="Send message (Enter)"
           >
-            {isLoading ? "Sending..." : "Send"}
+            {isLoading ? "Sending..." : "Ask"}
           </button>
         </div>
       </section>

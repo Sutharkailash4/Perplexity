@@ -1076,3 +1076,300 @@ aside h2 {
 .dashboard-chat-main-box .search-box button:hover {
   opacity: 0.95;
 }
+
+/* Polished Perplexity-inspired UI overrides */
+body {
+  background:
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.15), transparent 30%),
+    linear-gradient(135deg, #030711 0%, #071120 50%, #040814 100%);
+}
+
+.dashboard-main {
+  background: transparent;
+  padding: 18px;
+  gap: 18px;
+}
+
+.dashboard-sidebar {
+  width: 300px;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(8, 15, 25, 0.9);
+  box-shadow: 0 18px 60px rgba(2, 8, 23, 0.45);
+}
+
+.sidebar-header {
+  padding: 20px 18px 16px;
+}
+
+.perplexity-heading {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.new-chat-btn {
+  margin: 16px 18px;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.dashboard-main-content {
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.94), rgba(7, 16, 30, 0.96));
+  box-shadow: 0 18px 60px rgba(2, 8, 23, 0.4);
+  overflow: hidden;
+}
+
+.welcome-container {
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(34, 211, 238, 0.16), transparent 35%),
+    linear-gradient(180deg, rgba(6, 13, 24, 0.9), rgba(7, 16, 30, 0.96));
+}
+
+.welcome-content {
+  max-width: 760px;
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 34px 28px;
+  border-radius: 24px;
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  background: rgba(7, 15, 28, 0.72);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.welcome-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #7dd3fc;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.welcome-content h1 {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  margin-bottom: 10px;
+}
+
+.welcome-content p {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.example-prompts h3 {
+  margin-bottom: 12px;
+  color: #7dd3fc;
+}
+
+.prompt-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.prompt-btn {
+  width: 100%;
+  border-radius: 14px;
+  padding: 13px 14px;
+  background: rgba(7, 15, 28, 0.9);
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  color: #e2f6ff;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.prompt-btn:hover {
+  transform: translateY(-2px);
+  border-color: #38bdf8;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.chat-container {
+  height: 100%;
+  padding: 18px;
+}
+
+.conversation-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  border-radius: 22px;
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  background: rgba(5, 10, 20, 0.72);
+  overflow: hidden;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(7, 15, 28, 0.72);
+}
+
+.conversation-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #7dd3fc;
+  margin-bottom: 4px;
+}
+
+.conversation-header h3 {
+  color: #f8fbff;
+  font-size: 1rem;
+}
+
+.conversation-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-pill,
+.focus-pill {
+  padding: 6px 10px;
+  font-size: 11px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #bae6fd;
+  border: 1px solid rgba(34, 211, 238, 0.18);
+}
+
+.messages-box {
+  flex: 1;
+  padding: 20px;
+  gap: 14px;
+  background:
+    radial-gradient(circle at top right, rgba(34, 211, 238, 0.08), transparent 30%),
+    rgba(4, 10, 20, 0.7);
+}
+
+.message {
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.message-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.18);
+  font-size: 16px;
+}
+
+.message-content {
+  max-width: 78%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.22);
+}
+
+.user-msg .message-content {
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  color: #f8fbff;
+}
+
+.ai-msg .message-content {
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  color: #e2e8f0;
+}
+
+.search-box {
+  margin: 0 18px 18px;
+  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  background: rgba(8, 15, 25, 0.92);
+  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.28);
+}
+
+.search-input {
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(125, 211, 252, 0.14);
+  background: rgba(4, 10, 20, 0.9);
+  color: #f8fbff;
+}
+
+.search-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+}
+
+.send-btn {
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #f8fbff;
+  border: none;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.24);
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.32);
+}
+
+@media (max-width: 1024px) {
+  .prompt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    max-height: 320px;
+  }
+
+  .conversation-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .message-content {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-content {
+    padding: 24px 18px;
+  }
+
+  .search-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .send-btn {
+    width: 100%;
+  }
+}
